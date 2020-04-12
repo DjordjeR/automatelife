@@ -1,0 +1,20 @@
+import ctypes.wintypes
+import os
+from pathlib import Path
+
+TEMPLATES_DIR = Path("templates")
+LANGUAGES_DIR = TEMPLATES_DIR / "languages"
+DEFAULT_GITIGNORE = ["visualstudiocode"]
+
+if os.name == "nt":
+    CSIDL_PERSONAL = 5
+    SHGFP_TYPE_CURRENT = 0
+    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+    ctypes.windll.shell32.SHGetFolderPathW(0, CSIDL_PERSONAL, 0, SHGFP_TYPE_CURRENT, buf)
+    DEFAULT_PROJECTS_DIR = Path(buf.value) / "Projects"
+elif os.name == "posix":
+    DEFAULT_PROJECTS_DIR = Path.home() / "Projects"
+else:
+    DEFAULT_PROJECTS_DIR = Path("Projects")
+
+GITIGNORE_URL = "https://www.gitignore.io/api/"

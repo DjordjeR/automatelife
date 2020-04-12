@@ -1,0 +1,22 @@
+{
+  "name": "python",
+  "dirs":  [
+    ["$projectName"],
+    ["bin"],
+    ["docs"]
+  ],
+  "files": [
+    ["$projectName", "__init__.py"],
+    ["$projectName", "core.py"],
+    ["README.md"],
+    [".gitignore"],
+    ["bin", "example.py"]
+  ],
+  "readme_template": "README_PYTHON.md",
+  "gitignore": [
+    "python",
+    "visualstudiocode",
+    "pycharm",
+    "venv"
+  ]
+}
