@@ -29,8 +29,7 @@ def command_line_run():
         if sys.platform == "win32":
             os.startfile(project_path)
         else:
-            print("Project created")
-            print(project_path)
+            print(f"Project created: {project_path}")
     except ProjectExistsException:
         print(f"Project ({args.project_name}) already exists")
         exit(-1)

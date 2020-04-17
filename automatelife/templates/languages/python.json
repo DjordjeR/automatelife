@@ -3,7 +3,8 @@
   "dirs":  [
     ["$projectName"],
     ["bin"],
-    ["docs"]
+    ["docs"],
+    ["tests"]
   ],
   "files": [
     ["$projectName", "__init__.py"],
