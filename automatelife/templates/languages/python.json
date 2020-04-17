@@ -10,6 +10,7 @@
     ["$projectName", "core.py"],
     ["README.md"],
     [".gitignore"],
+    ["setup.py"],
     ["bin", "example.py"]
   ],
   "readme_template": "README_PYTHON.md",
@@ -18,5 +19,8 @@
     "visualstudiocode",
     "pycharm",
     "venv"
+  ],
+  "commands": [
+    "git init"
   ]
 }

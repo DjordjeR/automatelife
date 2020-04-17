@@ -2,7 +2,7 @@ import ctypes.wintypes
 import os
 from pathlib import Path
 
-TEMPLATES_DIR = Path("templates")
+TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
 LANGUAGES_DIR = TEMPLATES_DIR / "languages"
 DEFAULT_GITIGNORE = ["visualstudiocode"]
 

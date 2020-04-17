@@ -1,5 +1,7 @@
 import urllib.request
+from pathlib import Path
 from .constants import GITIGNORE_URL
+
 """
 START:
 Url: https://gist.github.com/wassname/1393c4a57cfcbf03641dbc31886123b8
@@ -43,8 +45,12 @@ def get_gitignore(keywords=None) -> str:
         url += keyword + ","
     url = url.rstrip(",")
     request = urllib.request.Request(url, None, headers)  # The assembled request
-    text = None
     with urllib.request.urlopen(request) as response:
         text = response.read()
     return text.decode("utf-8")
 
+
+def discover_supported_languages(templates_dir: Path):
+    p = templates_dir.glob("**/*")
+    files = [f.stem for f in p if f.is_file()]
+    return files
