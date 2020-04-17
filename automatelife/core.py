@@ -1,20 +1,23 @@
+import logging
 from pathlib import Path
 
 from git import Repo
 
 from .constants import DEFAULT_PROJECTS_DIR
 from .exceptions import ProjectExistsException
-from .language import SupportedLanguages, LanguageDefinition
+from .language import LanguageDefinition
 from .utils import clean_filename, get_gitignore
+
+logger = logging.getLogger(__name__)
 
 
 class Project:
-    def __init__(self, name: str, description="TODO", language: SupportedLanguages = SupportedLanguages.OTHER,
+    def __init__(self, name: str, description="TODO", language: str = "other",
                  **kwargs):
         self._name = name
         self._language_definition = LanguageDefinition(language)
         self._description = description
-        
+
         if "projects_root" in kwargs:
             self._projects_root = Path(kwargs["projects_root"])
         else:
@@ -40,7 +43,7 @@ class Project:
         for file_path in self._language_definition.files:
             current_full_dir = self._project_path
             for file_name in file_path:
-                print(current_full_dir)
+                logger.info(current_full_dir)
                 if file_name == "$projectName":
                     current_full_dir = current_full_dir / clean_filename(self._name)
                 else:
@@ -71,6 +74,7 @@ class Project:
         self._init_repo()
         self._write_gitignore()
         # self._fill_templates()
+        return self._project_path
 
     def __repr__(self):
         return {
@@ -81,4 +85,4 @@ class Project:
         }
 
     def __str__(self):
-        return f"AutomateLife(name={self._name}, language={self._language_definition}, description={self._description}, project_root={self._projects_root})"
+        return f"AutomateLife(name={self._name}, language={self._language_definition}, description={self._description}, project_root={self._projects_root}) "

@@ -3,13 +3,15 @@
   "dirs":  [
     ["$projectName"],
     ["bin"],
-    ["docs"]
+    ["docs"],
+    ["tests"]
   ],
   "files": [
     ["$projectName", "__init__.py"],
     ["$projectName", "core.py"],
     ["README.md"],
     [".gitignore"],
+    ["setup.py"],
     ["bin", "example.py"]
   ],
   "readme_template": "README_PYTHON.md",
@@ -18,5 +20,8 @@
     "visualstudiocode",
     "pycharm",
     "venv"
+  ],
+  "commands": [
+    "git init"
   ]
 }
