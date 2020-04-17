@@ -21,9 +21,10 @@ setup(name="automatelife",
       install_requires=["GitPython"],
       entry_points={  # Optional
           "console_scripts": [
-              "automatelife=automatelife:command_line_run",
+              ["automatelife=automatelife:command_line_run"],
           ],
       },
+      scripts=(),
       package_data={
           "automatelife": ["templates/*.md", "templates/languages/*.json"],
       },
