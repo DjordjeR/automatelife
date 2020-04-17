@@ -1,4 +1,3 @@
-import ctypes.wintypes
 import os
 from pathlib import Path
 
@@ -7,6 +6,7 @@ LANGUAGES_DIR = TEMPLATES_DIR / "languages"
 DEFAULT_GITIGNORE = ["visualstudiocode"]
 
 if os.name == "nt":
+    import ctypes.wintypes
     CSIDL_PERSONAL = 5
     SHGFP_TYPE_CURRENT = 0
     buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
