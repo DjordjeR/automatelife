@@ -9,8 +9,9 @@ from .utils import discover_supported_languages
 
 
 def __setup_args_parser__():
-    parser = argparse.ArgumentParser(description="Create a project structure and some common files for the given "
-                                                 "programing language.",
+    """Sets up command line arguments."""
+    parser = argparse.ArgumentParser(description='Create a project structure and some common files for the given '
+                                                 'programing language.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("project_name", metavar="project_name", type=str, help="name of the project to be created")
     parser.add_argument("--dir", help="path to the directory where new project will be created",
@@ -33,3 +34,7 @@ def command_line_run():
     except ProjectExistsException:
         print(f"Project ({args.project_name}) already exists")
         exit(-1)
+
+
+if __name__ == '__main__':
+    command_line_run()

@@ -9,7 +9,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 # REF: https://github.com/pypa/sampleproject/blob/master/setup.py
 setup(name="automatelife",
-      version="1.0.0-dev.1",
+      version="1.0.0-alpha.1",
       description="Simple project creation automation :)",
       long_description=long_description,
       long_description_content_type="text/markdown",
@@ -21,7 +21,7 @@ setup(name="automatelife",
       install_requires=["GitPython"],
       entry_points={  # Optional
           "console_scripts": [
-              "automatelife=automatelife:command_line_run",
+              "automate-life=automatelife:command_line_run",
           ],
       },
       package_data={
@@ -29,12 +29,14 @@ setup(name="automatelife",
       },
       classifiers=[
           "Development Status :: 3 - Alpha",
+          "Environment :: Console",
           "Intended Audience :: Developers",
           "Topic :: Software Development :: Automation Tools",
-          "License :: OSI Approved :: GPL-3.0  License",
+          "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
           "Programming Language :: Python :: 3.6",
           "Programming Language :: Python :: 3.7",
           "Programming Language :: Python :: 3.8",
       ],
+      platforms=["any"],
       python_requires='>=3.6',
       zip_safe=False)

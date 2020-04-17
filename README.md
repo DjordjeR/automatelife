@@ -10,7 +10,12 @@ change.
 
 ## Installation
 
-Right now it is possible to clone this repository and install it with pip.
+```shell script
+pip install -U git+https://github.com/djordjer/automatelife # Windows
+pip3 install -U git+https://github.com/djordjer/automatelife # Linux
+```
+
+It is also possible to clone the repository and install it with pip.
 
 ```shell script
 pip install . # Windows
@@ -26,8 +31,8 @@ pip3 install -e . # Linux
 
 ## Usage
 ```shell script
-automatelife -h # To show help
-automatelife projectName --dir=/home/Projects --lang=python
+automate-life -h # To show help
+automate-life projectName --dir=/home/Projects --lang=python
 ```
 
 ## Author

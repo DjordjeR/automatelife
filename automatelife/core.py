@@ -1,5 +1,6 @@
-from pathlib import Path
 import logging
+from pathlib import Path
+
 from git import Repo
 
 from .constants import DEFAULT_PROJECTS_DIR
@@ -8,6 +9,7 @@ from .language import LanguageDefinition
 from .utils import clean_filename, get_gitignore
 
 logger = logging.getLogger(__name__)
+
 
 class Project:
     def __init__(self, name: str, description="TODO", language: str = "other",
