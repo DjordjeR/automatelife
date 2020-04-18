@@ -28,7 +28,7 @@ def __setup_args_parser__(config):
     project_parser.add_argument("-d", "--directory", help="path to the directory where new project will be created",
                                 default=config.projects_dir, type=str)
     project_parser.add_argument("-l", "--language", help="project programming language",
-                                choices=discover_supported_languages(config.templates_dir), default="python", type=str)
+                                choices=discover_supported_languages(config.languages_dir), default="python", type=str)
     project_parser.add_argument("-dsc", "--description", help="description of the project", default="TODO", type=str)
     return parser.parse_args()
 
