@@ -3,27 +3,28 @@ from pathlib import Path
 
 from git import Repo
 
-from .constants import DEFAULT_PROJECTS_DIR
 from .exceptions import ProjectExistsException
 from .language import LanguageDefinition
 from .utils import clean_filename, get_gitignore
+from .config import Config
 
 logger = logging.getLogger(__name__)
 
 
 class Project:
-    def __init__(self, name: str, description="TODO", language: str = "other",
-                 **kwargs):
+    """ Takes in data about the project and creates the project with desired folder and file structure."""
+
+    def __init__(self, name: str, description="TODO", language: str = "other", config: Config = Config(), **kwargs):
         self._name = name
-        self._language_definition = LanguageDefinition(language)
+        self._language_definition = LanguageDefinition(language, config)
         self._description = description
-
-        if "projects_root" in kwargs:
-            self._projects_root = Path(kwargs["projects_root"])
+        self._config = config
+        if "project_path" in kwargs:
+            self._project_path = kwargs["project_path"] / clean_filename(self._name)
         else:
-            self._projects_root = DEFAULT_PROJECTS_DIR
+            self._project_path = self._config.projects_dir / clean_filename(self._name)
 
-        self._project_path = self._projects_root / clean_filename(self._name)
+        logger.info(f"Project created: {self}")
 
     def _create_directory_structure(self):
         if self._project_path.exists():
@@ -40,6 +41,7 @@ class Project:
             current_full_dir.mkdir(parents=True, exist_ok=True)
 
     def _create_files(self):
+
         for file_path in self._language_definition.files:
             current_full_dir = self._project_path
             for file_name in file_path:
@@ -64,11 +66,14 @@ class Project:
             file.write(gitignore_text)
 
     def _init_repo(self):
-        full_project = self._projects_root / clean_filename(self._name)
+        full_project = self._config.projects_dir / clean_filename(self._name)
         git_repo = Repo.init(full_project)
         # TODO: Get user name and email
 
     def run(self):
+        """ Creates the project with the necessary structure. Fails if project exists.
+        return created project path
+        """
         self._create_directory_structure()
         self._create_files()
         self._init_repo()
@@ -81,8 +86,8 @@ class Project:
             "name": self._name,
             "language": self._language_definition,
             "description": self._description,
-            "projects_root": self._projects_root
+            "config": self._config
         }
 
     def __str__(self):
-        return f"AutomateLife(name={self._name}, language={self._language_definition}, description={self._description}, project_root={self._projects_root}) "
+        return f"AutomateLife(name={self._name}, language={self._language_definition}, description={self._description}, config={self._config}) "

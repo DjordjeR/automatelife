@@ -3,7 +3,7 @@ from pathlib import Path
 from .constants import GITIGNORE_URL
 
 """
-START:
+TAKEN FROM START:
 Url: https://gist.github.com/wassname/1393c4a57cfcbf03641dbc31886123b8
 """
 import unicodedata
@@ -30,12 +30,13 @@ def clean_filename(filename, whitelist=valid_filename_chars, replace=' '):
 
 
 """
-STOP:
+TAKEN FROM STOP:
 Url: https://gist.github.com/wassname/1393c4a57cfcbf03641dbc31886123b8
 """
 
 
 def get_gitignore(keywords=None) -> str:
+    """Based on the keywords query gitignore.io api and generate .gitignore file."""
     if keywords is None:
         raise TypeError
     user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
@@ -44,13 +45,13 @@ def get_gitignore(keywords=None) -> str:
     for keyword in keywords:
         url += keyword + ","
     url = url.rstrip(",")
-    request = urllib.request.Request(url, None, headers)  # The assembled request
+    request = urllib.request.Request(url, None, headers)
     with urllib.request.urlopen(request) as response:
         text = response.read()
     return text.decode("utf-8")
 
 
 def discover_supported_languages(templates_dir: Path):
+    """ Checks the languages templates directory and returns the list of file names inside it."""
     p = templates_dir.glob("**/*")
-    files = [f.stem for f in p if f.is_file()]
-    return files
+    return [f.stem for f in p if f.is_file()]
