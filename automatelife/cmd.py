@@ -21,6 +21,10 @@ def __setup_args_parser__(config):
                                           formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     config_parser.add_argument("-i", "--interactive", action="store_true",
                                help="create configuration file interactively")
+    possible_settings_group = config_parser.add_argument_group(description="Possible settings")
+
+    for setting in vars(config).keys():
+        possible_settings_group.add_argument(f"--{setting}", default=None)
 
     project_parser = subparsers.add_parser("project", help="create a new project",
                                            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -30,6 +34,7 @@ def __setup_args_parser__(config):
     project_parser.add_argument("-l", "--language", help="project programming language",
                                 choices=discover_supported_languages(config.languages_dir), default="python", type=str)
     project_parser.add_argument("-dsc", "--description", help="description of the project", default="TODO", type=str)
+
     return parser.parse_args()
 
 
@@ -37,7 +42,7 @@ def command_line_run():
     """ Parse the command line arguments and execute appropriate functions."""
     config = Config()
     args = __setup_args_parser__(config)
-
+    print(args)
     if args.command == "project":
         project = Project(args.project_name, args.description, args.lang, project_path=args.dir)
         try:
@@ -50,7 +55,13 @@ def command_line_run():
             print(f"Project ({args.project_name}) already exists")
             exit(-1)
     elif args.command == "config":
-        print(args.interactive)
+        config = Config()
+        for setting in vars(config).keys():
+            value = getattr(args, setting)
+            if value is not None:
+                setattr(config, setting, value)
+
+        print(config.save())
     else:
         raise TypeError
 

@@ -28,7 +28,8 @@ class Config:
         }
         return json.dumps(obj)
 
-    def save(self, file):
+    def save(self):
         """Save the configuration in the given file. """
+        file = "APPDATA" # TODO: APPDATA on Windows and check for Linux
         with open(file, mode="w") as f:
             f.write(self.to_json())
