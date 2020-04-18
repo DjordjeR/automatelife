@@ -1,10 +1,6 @@
 import os
 from pathlib import Path
 
-TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
-LANGUAGES_DIR = TEMPLATES_DIR / "languages"
-DEFAULT_GITIGNORE = ["visualstudiocode"]
-
 if os.name == "nt":
     import ctypes.wintypes
     CSIDL_PERSONAL = 5
@@ -17,4 +13,8 @@ elif os.name == "posix":
 else:
     DEFAULT_PROJECTS_DIR = Path("Projects")
 
+TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
+LANGUAGES_DIR = TEMPLATES_DIR / "languages"
+
+DEFAULT_GITIGNORE = ["visualstudiocode"]
 GITIGNORE_URL = "https://www.gitignore.io/api/"

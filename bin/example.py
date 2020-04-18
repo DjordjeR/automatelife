@@ -1,10 +1,8 @@
-from automatelife.core import Project
-from automatelife.utils import discover_supported_languages
-from automatelife.constants import LANGUAGES_DIR
-from automatelife.config import Config
-
+from automatelife import Config
+from automatelife import discover_supported_languages
 
 if __name__ == "__main__":
-    print(discover_supported_languages(LANGUAGES_DIR))
+    config = Config()
+    print(discover_supported_languages(config.languages_dir))
     conf = Config()
-    print(vars(conf))
+    print(conf.to_json())
