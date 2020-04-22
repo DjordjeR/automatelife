@@ -55,12 +55,10 @@ def command_line_run():
             print(f"Project ({args.project_name}) already exists")
             exit(-1)
     elif args.command == "config":
-        config = Config()
         for setting in vars(config).keys():
             value = getattr(args, setting)
             if value is not None:
                 setattr(config, setting, value)
-
         print(config.save())
     else:
         raise TypeError
