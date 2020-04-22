@@ -46,9 +46,6 @@ automate-life project projectName --dir=/home/Projects --lang=python
 ## TODOs
 
 * [ ] Create permanent config
-* [ ] Publish to pypi
-* [ ] Add changelog
-* [ ] Semantic versioning
 * [ ] Documentation
 * [ ] Unit tests
 * [X] Basic Readme

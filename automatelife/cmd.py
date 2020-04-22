@@ -40,6 +40,7 @@ def __setup_args_parser__(config):
 
 def command_line_run():
     """ Parse the command line arguments and execute appropriate functions."""
+    print("TESTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
     config = Config()
     args = __setup_args_parser__(config)
     print(args)
