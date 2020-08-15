@@ -1,7 +1,13 @@
 import json
 import os
 
-from .constants import TEMPLATES_DIR, LANGUAGES_DIR, DEFAULT_GITIGNORE, DEFAULT_PROJECTS_DIR, GITIGNORE_URL
+from .constants import (
+    DEFAULT_GITIGNORE,
+    DEFAULT_PROJECTS_DIR,
+    GITIGNORE_URL,
+    LANGUAGES_DIR,
+    TEMPLATES_DIR,
+)
 
 
 class Config:
@@ -27,7 +33,7 @@ class Config:
             "languages_dir": os.fspath(self.languages_dir),
             "gitignore": self.gitignore,
             "projects_dir": os.fspath(self.projects_dir),
-            "gitignore_url": self.gitignore_url
+            "gitignore_url": self.gitignore_url,
         }
         return json.dumps(obj)
 

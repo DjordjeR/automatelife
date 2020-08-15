@@ -3,18 +3,26 @@ from pathlib import Path
 
 from git import Repo
 
+from .config import Config
 from .exceptions import ProjectExistsException
 from .language import LanguageDefinition
 from .utils import clean_filename, get_gitignore
-from .config import Config
 
 logger = logging.getLogger(__name__)
 
 
 class Project:
-    """ Takes in data about the project and creates the project with desired folder and file structure."""
+    """ Takes in data about the project and creates the project with desired
+    folder and file structure."""
 
-    def __init__(self, name: str, description="TODO", language: str = "other", config: Config = Config(), **kwargs):
+    def __init__(
+        self,
+        name: str,
+        description="TODO",
+        language: str = "other",
+        config: Config = Config(),
+        **kwargs,
+    ):
         self._name = name
         self._language_definition = LanguageDefinition(language, config)
         self._description = description
@@ -60,7 +68,7 @@ class Project:
 
     def _write_gitignore(self):
         gitignore_text = get_gitignore(self._language_definition.gitignore)
-        gitignore_file = (self._project_path / ".gitignore")
+        gitignore_file = self._project_path / ".gitignore"
         gitignore_file.touch(exist_ok=True)
         with open(gitignore_file, mode="w") as file:
             file.write(gitignore_text)
@@ -86,7 +94,7 @@ class Project:
             "name": self._name,
             "language": self._language_definition,
             "description": self._description,
-            "config": self._config
+            "config": self._config,
         }
 
     def __str__(self):

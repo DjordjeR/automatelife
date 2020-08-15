@@ -1,5 +1,6 @@
 import json
 from typing import List
+
 from .config import Config
 
 
@@ -13,7 +14,8 @@ class LanguageDefinition:
     def __init__(self, lang: str, config: Config):
         self._lang = lang
         self._config = config
-        self._template_file = self._config.templates_dir / (self._lang + ".json")
+        self._template_file = self._config.templates_dir / \
+            (self._lang + ".json")
         self.__load_language_specifics()
 
     def __load_language_specifics(self):
