@@ -1,5 +1,4 @@
-from automatelife import Config
-from automatelife import discover_supported_languages
+from automatelife import Config, discover_supported_languages
 
 if __name__ == "__main__":
     config = Config()

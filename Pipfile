@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 flake8 = "*"
 autopep8 = "*"
+isort = "*"
+rope = "*"
 
 [packages]
 GitPython = "==3.1.1"

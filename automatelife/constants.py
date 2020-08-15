@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 
+CONFIG_DIR = Path.home()
+
+# TODO: The checks are not that good, some fixes might be needed.
 if os.name == "nt":
     import ctypes.wintypes
 
@@ -11,13 +14,17 @@ if os.name == "nt":
         0, CSIDL_PERSONAL, 0, SHGFP_TYPE_CURRENT, buf
     )
     DEFAULT_PROJECTS_DIR = Path(buf.value) / "Projects"
+    CONFIG_DIR = CONFIG_DIR / "AppData/Roaming"
 elif os.name == "posix":
     DEFAULT_PROJECTS_DIR = Path.home() / "Projects"
+    CONFIG_DIR = CONFIG_DIR / ".local/share"
 else:
     DEFAULT_PROJECTS_DIR = Path("Projects")
+    CONFIG_DIR = CONFIG_DIR / "Library/Application Support"
 
-TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
-LANGUAGES_DIR = TEMPLATES_DIR / "languages"
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+TEMPLATES_DIR = STATIC_DIR / "templates"
+LANGUAGES_DIR = STATIC_DIR / "lang_definitions"
 
 DEFAULT_GITIGNORE = ["visualstudiocode"]
 GITIGNORE_URL = "https://www.gitignore.io/api/"

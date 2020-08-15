@@ -28,11 +28,13 @@ class Project:
         self._description = description
         self._config = config
         if "project_path" in kwargs:
-            self._project_path = kwargs["project_path"] / clean_filename(self._name)
+            self._project_path = kwargs["project_path"] / \
+                clean_filename(self._name)
         else:
-            self._project_path = self._config.projects_dir / clean_filename(self._name)
+            self._project_path = self._config.projects_dir / \
+                clean_filename(self._name)
 
-        logger.info(f"Project created: {self}")
+        logger.debug(f"Project created: {self}")
 
     def _create_directory_structure(self):
         if self._project_path.exists():
@@ -43,7 +45,8 @@ class Project:
             current_full_dir = self._project_path
             for dir_name in dir_path:
                 if dir_name == "$projectName":
-                    current_full_dir = current_full_dir / clean_filename(self._name)
+                    current_full_dir = current_full_dir / \
+                        clean_filename(self._name)
                 else:
                     current_full_dir = current_full_dir / dir_name
             current_full_dir.mkdir(parents=True, exist_ok=True)
@@ -53,9 +56,10 @@ class Project:
         for file_path in self._language_definition.files:
             current_full_dir = self._project_path
             for file_name in file_path:
-                logger.info(current_full_dir)
+                logger.debug(current_full_dir)
                 if file_name == "$projectName":
-                    current_full_dir = current_full_dir / clean_filename(self._name)
+                    current_full_dir = current_full_dir / \
+                        clean_filename(self._name)
                 else:
                     current_full_dir = current_full_dir / file_name
             current_full_dir.touch()
@@ -98,4 +102,4 @@ class Project:
         }
 
     def __str__(self):
-        return f"AutomateLife(name={self._name}, language={self._language_definition}, description={self._description}, config={self._config}) "
+        return f"Project(name={self._name}, language={self._language_definition}, description={self._description}, config={self._config}) "

@@ -14,12 +14,12 @@ class LanguageDefinition:
     def __init__(self, lang: str, config: Config):
         self._lang = lang
         self._config = config
-        self._template_file = self._config.templates_dir / \
+        self._language_def_file = self._config.languages_dir / \
             (self._lang + ".json")
         self.__load_language_specifics()
 
     def __load_language_specifics(self):
-        with open(self._template_file) as f:
+        with open(self._language_def_file) as f:
             loaded_data = json.loads(f.read())
 
         self._dirs = loaded_data["dirs"]
@@ -39,11 +39,11 @@ class LanguageDefinition:
     def __repr__(self):
         return {
             "name": self._lang,
-            "template_file": self._template_file,
+            "template_file": self._language_def_file,
         }
 
     def __str__(self):
-        return f"LanguageDefinition(name={self._lang}, template_file={self._template_file})"
+        return f"LanguageDefinition(name={self._lang}, template_file={self._language_def_file})"
 
     @property
     def lang(self) -> str:

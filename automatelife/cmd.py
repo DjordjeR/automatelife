@@ -1,4 +1,5 @@
 import argparse
+import logging
 import os
 import sys
 
@@ -7,13 +8,17 @@ from .core import Project
 from .exceptions import ProjectExistsException
 from .utils import discover_supported_languages
 
+logger = logging.getLogger(__name__)
 
-def __setup_args_parser__(config):
+logging.basicConfig(level=logging.DEBUG)
+
+
+def _setup_args_parser(config):
     """Sets up command line arguments."""
 
     parser = argparse.ArgumentParser(
-        description="Create a project structure and some common files for the given "
-        "programing language.",
+        description="Create a project structure and some common files for the "
+        "given programing language.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     subparsers = parser.add_subparsers(help="choose command", dest="command")
@@ -73,14 +78,12 @@ def __setup_args_parser__(config):
 
 def command_line_run():
     """ Parse the command line arguments and execute appropriate functions."""
-    print("TESTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
     config = Config()
-    args = __setup_args_parser__(config)
-    print(args)
+    args = _setup_args_parser(config)
+    logger.debug(args)
     if args.command == "project":
-        project = Project(
-            args.project_name, args.description, args.lang, project_path=args.dir
-        )
+        project = Project(args.name, args.description,
+                          args.language, project_path=args.directory)
         try:
             project_path = project.run()
             if sys.platform == "win32":
@@ -88,14 +91,14 @@ def command_line_run():
             else:
                 print(f"Project created: {project_path}")
         except ProjectExistsException:
-            print(f"Project ({args.project_name}) already exists")
+            print(f"Project ({args.name}) already exists.")
             exit(-1)
     elif args.command == "config":
         for setting in vars(config).keys():
             value = getattr(args, setting)
             if value is not None:
                 setattr(config, setting, value)
-        print(config.save())
+        logger.debug(config.to_json())
     else:
         raise TypeError
 
