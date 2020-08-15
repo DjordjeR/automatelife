@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ac219936d7beee242d5055683510c39165a4f1f3226844ecd28e1bedb2e3780b"
+            "sha256": "e3f1670377000c4cd02ea8cf520ccfcb74ed99ddd3755ae4fa592171222f3d56"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,30 +15,7 @@
             }
         ]
     },
-    "default": {
-        "gitdb": {
-            "hashes": [
-                "sha256:91f36bfb1ab7949b3b40e23736db18231bf7593edada2ba5c3a174a7b23657ac",
-                "sha256:c9e1f2d0db7ddb9a704c2a0217be31214e91a4fe1dea1efad19ae42ba0c285c9"
-            ],
-            "version": "==4.0.5"
-        },
-        "gitpython": {
-            "hashes": [
-                "sha256:6d4f10e2aaad1864bb0f17ec06a2c2831534140e5883c350d58b4e85189dab74",
-                "sha256:71b8dad7409efbdae4930f2b0b646aaeccce292484ffa0bc74f1195582578b3d"
-            ],
-            "index": "pypi",
-            "version": "==3.1.1"
-        },
-        "smmap": {
-            "hashes": [
-                "sha256:54c44c197c819d5ef1991799a7e30b662d1e520f2ac75c9efbeb54a742214cf4",
-                "sha256:9c98bbd1f9786d22f14b3d4126894d56befb835ec90cef151af566c7e19b5d24"
-            ],
-            "version": "==3.0.4"
-        }
-    },
+    "default": {},
     "develop": {
         "automatelife": {
             "editable": true,
@@ -58,21 +35,6 @@
             ],
             "index": "pypi",
             "version": "==3.8.3"
-        },
-        "gitdb": {
-            "hashes": [
-                "sha256:91f36bfb1ab7949b3b40e23736db18231bf7593edada2ba5c3a174a7b23657ac",
-                "sha256:c9e1f2d0db7ddb9a704c2a0217be31214e91a4fe1dea1efad19ae42ba0c285c9"
-            ],
-            "version": "==4.0.5"
-        },
-        "gitpython": {
-            "hashes": [
-                "sha256:6d4f10e2aaad1864bb0f17ec06a2c2831534140e5883c350d58b4e85189dab74",
-                "sha256:71b8dad7409efbdae4930f2b0b646aaeccce292484ffa0bc74f1195582578b3d"
-            ],
-            "index": "pypi",
-            "version": "==3.1.1"
         },
         "isort": {
             "hashes": [
@@ -109,13 +71,6 @@
             ],
             "index": "pypi",
             "version": "==0.17.0"
-        },
-        "smmap": {
-            "hashes": [
-                "sha256:54c44c197c819d5ef1991799a7e30b662d1e520f2ac75c9efbeb54a742214cf4",
-                "sha256:9c98bbd1f9786d22f14b3d4126894d56befb835ec90cef151af566c7e19b5d24"
-            ],
-            "version": "==3.0.4"
         },
         "toml": {
             "hashes": [
