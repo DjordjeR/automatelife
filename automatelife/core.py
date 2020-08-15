@@ -19,14 +19,14 @@ class Project:
         name: str,
         description="TODO",
         language: str = "other",
-        config: Config = Config(),
+        config: Config = None,
         **kwargs,
     ):
         self._name = name
         self._claned_name = clean_filename(name)
         self._language_definition = LanguageDefinition(language, config)
         self._description = description
-        self._config = config
+        self._config = config if config else Config()
         if "project_path" in kwargs:
             self._project_path = kwargs["project_path"] / self._claned_name
         else:
