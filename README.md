@@ -47,7 +47,7 @@ automate-life config -h # See all config options
 
 ## TODOs
 
-* [ ] Create permanent config
+* [x] Create permanent config
 * [ ] Templates for files
 * [ ] Documentation
 * [X] Basic Readme
