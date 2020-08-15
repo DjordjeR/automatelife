@@ -1,4 +1,5 @@
 import logging
+import subprocess
 from pathlib import Path
 
 from git import Repo
@@ -24,51 +25,38 @@ class Project:
         **kwargs,
     ):
         self._name = name
+        self._claned_name = clean_filename(name)
         self._language_definition = LanguageDefinition(language, config)
         self._description = description
         self._config = config
         if "project_path" in kwargs:
-            self._project_path = kwargs["project_path"] / \
-                clean_filename(self._name)
+            self._project_path = kwargs["project_path"] / self._claned_name
         else:
-            self._project_path = self._config.projects_dir / \
-                clean_filename(self._name)
+            self._project_path = self._config.projects_dir / self._claned_name
 
         logger.debug(f"Project created: {self}")
 
     def _create_directory_structure(self):
         if self._project_path.exists():
-            raise ProjectExistsException(clean_filename(self._name))
+            raise ProjectExistsException(self._claned_name)
         self._project_path.mkdir(parents=True)
-
         for dir_path in self._language_definition.dirs:
-            current_full_dir = self._project_path
-            for dir_name in dir_path:
-                if dir_name == "$projectName":
-                    current_full_dir = current_full_dir / \
-                        clean_filename(self._name)
-                else:
-                    current_full_dir = current_full_dir / dir_name
+            current_full_dir = self._project_path / \
+                Path(dir_path.replace("$projectName", self._claned_name))
             current_full_dir.mkdir(parents=True, exist_ok=True)
 
     def _create_files(self):
-
         for file_path in self._language_definition.files:
-            current_full_dir = self._project_path
-            for file_name in file_path:
-                logger.debug(current_full_dir)
-                if file_name == "$projectName":
-                    current_full_dir = current_full_dir / \
-                        clean_filename(self._name)
-                else:
-                    current_full_dir = current_full_dir / file_name
-            current_full_dir.touch()
+            current_full_path = self._project_path / \
+                Path(file_path.replace("$projectName", self._claned_name))
+            current_full_path.touch()
 
     def _fill_templates(self):
         raise NotImplementedError
 
-    def _setup_venv(self):
-        raise NotImplementedError
+    def _run_commands(self):
+        for command in self._language_definition.commands:
+            subprocess.run(command.split(" "), cwd=self._project_path)
 
     def _write_gitignore(self):
         gitignore_text = get_gitignore(self._language_definition.gitignore)
@@ -77,11 +65,6 @@ class Project:
         with open(gitignore_file, mode="w") as file:
             file.write(gitignore_text)
 
-    def _init_repo(self):
-        full_project = self._config.projects_dir / clean_filename(self._name)
-        git_repo = Repo.init(full_project)
-        # TODO: Get user name and email
-
     def run(self):
         """ Creates the project with the necessary structure. Fails if project 
         exists.
@@ -89,7 +72,7 @@ class Project:
         """
         self._create_directory_structure()
         self._create_files()
-        self._init_repo()
+        self._run_commands()
         self._write_gitignore()
         # self._fill_templates()
         return self._project_path

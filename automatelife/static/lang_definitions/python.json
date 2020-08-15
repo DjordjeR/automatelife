@@ -1,27 +1,27 @@
 {
   "name": "python",
-  "dirs":  [
-    ["$projectName"],
-    ["bin"],
-    ["docs"],
-    ["tests"]
+  "dirs": [
+      "$projectName",
+      "bin",
+      "docs",
+      "tests",
+      "test/test2"
   ],
   "files": [
-    ["$projectName", "__init__.py"],
-    ["$projectName", "core.py"],
-    ["README.md"],
-    [".gitignore"],
-    ["setup.py"],
-    ["bin", "example.py"]
+      "$projectName/__init__.py",
+      "$projectName/core.py",
+      "README.md",
+      ".gitignore",
+      "setup.py",
+      "bin/example.py"
   ],
-  "templates_dir": "python",
   "gitignore": [
-    "python",
-    "visualstudiocode",
-    "pycharm",
-    "venv"
+      "python",
+      "visualstudiocode",
+      "pycharm",
+      "venv"
   ],
   "commands": [
-    "git init"
+      "git init"
   ]
 }
