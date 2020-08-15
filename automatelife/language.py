@@ -43,7 +43,8 @@ class LanguageDefinition:
         }
 
     def __str__(self):
-        return f"LanguageDefinition(name={self._lang}, template_file={self._language_def_file})"
+        return (f"LanguageDefinition(name={self._lang}, "
+                f"template_file={self._language_def_file})")
 
     @property
     def lang(self) -> str:

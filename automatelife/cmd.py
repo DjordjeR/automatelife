@@ -10,8 +10,6 @@ from .utils import discover_supported_languages
 
 logger = logging.getLogger(__name__)
 
-logging.basicConfig(level=logging.DEBUG)
-
 
 def _setup_args_parser(config):
     """Sets up command line arguments."""
@@ -21,9 +19,14 @@ def _setup_args_parser(config):
         "given programing language.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+    parser.add_argument("-v",
+                        "--verbose",
+                        action="store_true",
+                        help="turn on verbose logging"
+                        )
+
     subparsers = parser.add_subparsers(help="choose command", dest="command")
     subparsers.required = True
-
     config_parser = subparsers.add_parser(
         "config",
         help="create a program configuration",
@@ -78,8 +81,11 @@ def _setup_args_parser(config):
 
 def command_line_run():
     """ Parse the command line arguments and execute appropriate functions."""
-    config = Config()
+    config = Config.load_config()
     args = _setup_args_parser(config)
+
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
     logger.debug(args)
     if args.command == "project":
         project = Project(args.name, args.description,

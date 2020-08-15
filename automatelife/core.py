@@ -83,7 +83,8 @@ class Project:
         # TODO: Get user name and email
 
     def run(self):
-        """ Creates the project with the necessary structure. Fails if project exists.
+        """ Creates the project with the necessary structure. Fails if project 
+        exists.
         return created project path
         """
         self._create_directory_structure()
@@ -102,4 +103,6 @@ class Project:
         }
 
     def __str__(self):
-        return f"Project(name={self._name}, language={self._language_definition}, description={self._description}, config={self._config}) "
+        return (f"Project(name={self._name}, "
+                f"language={self._language_definition},"
+                f"description={self._description}, config={self._config})")
