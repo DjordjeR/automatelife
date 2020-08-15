@@ -1,7 +1,10 @@
 {
   "name": "other",
-  "dirs":  [],
   "files": [
-    ["README.md"]
+    "README.md"
+  ],
+  "commands":[
+    "git init",
+    "git status"
   ]
 }

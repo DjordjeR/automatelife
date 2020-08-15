@@ -1,5 +1,3 @@
-import dataclasses
-import json
 import string
 import unicodedata
 import urllib.request
@@ -30,8 +28,8 @@ def clean_filename(filename, whitelist=_valid_filename_chars, replace=" "):
     # keep only whitelisted chars
     cleaned_filename = "".join(c for c in cleaned_filename if c in whitelist)
     if len(cleaned_filename) > _char_limit:
-        print(f"Warning, filename truncated because it was over {_char_limit}. "
-              f"Filenames may no longer be unique")
+        print(f"Warning, filename truncated because it was over {_char_limit}."
+              f" Filenames may no longer be unique")
     return cleaned_filename[:_char_limit]
 
 
@@ -44,8 +42,8 @@ Url: https://gist.github.com/wassname/1393c4a57cfcbf03641dbc31886123b8
 def get_gitignore(keywords) -> str:
     """Based on the keywords query gitignore.io api and generate .gitignore
     file."""
-    user_agent = ("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) "
-                  "Gecko/2009021910 Firefox/3.0.7")
+    user_agent = ("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7)"
+                  " Gecko/2009021910 Firefox/3.0.7")
     headers = {"User-Agent": user_agent}
     url = GITIGNORE_URL
     url += ",".join(keywords)

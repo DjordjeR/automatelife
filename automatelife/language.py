@@ -4,36 +4,29 @@ from typing import List
 from .config import Config
 
 
-# TODO: LanguageDefinition might not be the best name, maybe named project structure or something like that.
-# In general this needs to be reformatted to better represent project structure.
 class LanguageDefinition:
     """
     Definition of the programming language structure.
     """
 
     def __init__(self, lang: str, config: Config):
+        self._dirs = None
+        self._files = None
+        self._commands = None
+        self._gitignore = None
         self._lang = lang
         self._config = config
         self._language_def_file = self._config.languages_dir / \
             (self._lang + ".json")
-        self.__load_language_specifics()
+        self._load_language_specifics()
 
-    def __load_language_specifics(self):
+    def _load_language_specifics(self):
         with open(self._language_def_file) as f:
             loaded_data = json.loads(f.read())
-
-        self._dirs = loaded_data["dirs"]
-        self._files = loaded_data["files"]
-
-        if "readme_template" in loaded_data:
-            self._readme_template = loaded_data["readme_template"]
-        else:
-            self._readme_template = "README.md"
-
-        if "gitignore" in loaded_data:
-            self._gitignore = loaded_data["gitignore"]
-        else:
-            self._gitignore = self._config.gitignore
+        self._dirs = loaded_data.get("dirs", [])
+        self._files = loaded_data.get("files", [])
+        self._commands = loaded_data.get("commands", [])
+        self._gitignore = loaded_data.get("gitignore", self._config.gitignore)
 
     # TODO: Complete __repr__ and __str__
     def __repr__(self):
@@ -54,20 +47,20 @@ class LanguageDefinition:
         return self._lang
 
     @property
-    def dirs(self) -> List[List[str]]:
+    def dirs(self) -> List[str]:
         """
         :returns: List of directories that need to be created in projectDir
         """
         return self._dirs
 
-    @property
-    def files(self) -> List[List[str]]:
+    @ property
+    def files(self) -> List[str]:
         """
         :returns List of files that need to be created in projectDir
         """
         return self._files
 
-    @property
+    @ property
     def gitignore(self) -> List[str]:
         """
         :returns List of gitignore keywords.
@@ -75,8 +68,8 @@ class LanguageDefinition:
         return self._gitignore
 
     @property
-    def readme_template(self) -> str:
+    def commands(self) -> List[str]:
         """
-        :returns Readme template name
+        :returns List of commands to be run after project creation
         """
-        return self._readme_template
+        return self._commands
