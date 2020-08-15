@@ -1,12 +1,13 @@
 # Automate life
 
-This tool was made to make my life easier. Every time a need to create a new project I start with the same
-basic structure, most of my python projects start the same, I need directory, I need a readme and so on. This 
-is why I decided to create this tool. In order to make it a little bit more usefully the structure of the 
-desired project can be defined as a json file. You can define some templates, directories and files you want created. 
-
-Project definition in json file will change often since this is still very much work in progress. Other things might also
-change. 
+This tool was made to make my life easier. Every time a need to create a new
+project I start with the same basic structure, most of my python projects start 
+the same, I need a directory, I need a readme and so on. This is why I decided 
+to create this tool. To make it a little bit more usefully, the structure of 
+the desired project can be defined as a JSON file. You can define some 
+templates, directories and files you want to be created. Project definition in 
+JSON file will change often since this is still very much work in progress. 
+Other things might also change.
 
 ## Installation
 
@@ -33,6 +34,7 @@ pip3 install -e . # Linux
 ```shell script
 automate-life -h # To show help
 automate-life project projectName --dir=/home/Projects --lang=python
+automate-life config -h # See all config options
 ```
 
 ## Author
@@ -46,6 +48,6 @@ automate-life project projectName --dir=/home/Projects --lang=python
 ## TODOs
 
 * [ ] Create permanent config
+* [ ] Templates for files
 * [ ] Documentation
-* [ ] Unit tests
 * [X] Basic Readme
