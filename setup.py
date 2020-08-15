@@ -19,7 +19,7 @@ setup(
     author_email="rajicdj@gmail.com",
     license="GPL",
     packages=["automatelife"],
-    install_requires=["GitPython"],
+    install_requires=[""],
     entry_points={  # Optional
         "console_scripts": [
             "automate-life=automatelife:command_line_run",
