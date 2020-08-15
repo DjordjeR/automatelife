@@ -14,7 +14,7 @@
     ["setup.py"],
     ["bin", "example.py"]
   ],
-  "readme_template": "README_PYTHON.md",
+  "templates_dir": "python",
   "gitignore": [
     "python",
     "visualstudiocode",

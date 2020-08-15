@@ -1,40 +1,113 @@
 import argparse
+import logging
 import os
 import sys
 
-from .constants import DEFAULT_PROJECTS_DIR, LANGUAGES_DIR
+from .config import Config
 from .core import Project
 from .exceptions import ProjectExistsException
 from .utils import discover_supported_languages
 
+logger = logging.getLogger(__name__)
 
-def __setup_args_parser__():
+
+def _setup_args_parser(config):
     """Sets up command line arguments."""
-    parser = argparse.ArgumentParser(description='Create a project structure and some common files for the given '
-                                                 'programing language.',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("project_name", metavar="project_name", type=str, help="name of the project to be created")
-    parser.add_argument("--dir", help="path to the directory where new project will be created",
-                        default=DEFAULT_PROJECTS_DIR, type=str)
-    parser.add_argument("--lang", help="project programming language",
-                        choices=discover_supported_languages(LANGUAGES_DIR), default="python", type=str)
-    parser.add_argument("--description", help="description of the project", default="TODO", type=str)
+
+    parser = argparse.ArgumentParser(
+        description="Create a project structure and some common files for the "
+        "given programing language.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument("-v",
+                        "--verbose",
+                        action="store_true",
+                        help="turn on verbose logging"
+                        )
+
+    subparsers = parser.add_subparsers(help="choose command", dest="command")
+    subparsers.required = True
+    config_parser = subparsers.add_parser(
+        "config",
+        help="create a program configuration",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    config_parser.add_argument(
+        "-i",
+        "--interactive",
+        action="store_true",
+        help="create configuration file interactively",
+    )
+    possible_settings_group = config_parser.add_argument_group(
+        description="Possible settings"
+    )
+
+    for setting in vars(config).keys():
+        possible_settings_group.add_argument(f"--{setting}", default=None)
+
+    project_parser = subparsers.add_parser(
+        "project",
+        help="create a new project",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    project_parser.add_argument(
+        "name", metavar="name", type=str, help="name of the project"
+    )
+    project_parser.add_argument(
+        "-d",
+        "--directory",
+        help="path to the directory where new project will be created",
+        default=config.projects_dir,
+        type=str,
+    )
+    project_parser.add_argument(
+        "-l",
+        "--language",
+        help="project programming language",
+        choices=discover_supported_languages(config.languages_dir),
+        default="python",
+        type=str,
+    )
+    project_parser.add_argument(
+        "-dsc",
+        "--description",
+        help="description of the project",
+        default="TODO",
+        type=str,
+    )
+
     return parser.parse_args()
 
 
 def command_line_run():
-    args = __setup_args_parser__()
-    project = Project(args.project_name, args.description, args.lang, projects_root=args.dir)
-    try:
-        project_path = project.run()
-        if sys.platform == "win32":
-            os.startfile(project_path)
-        else:
-            print(f"Project created: {project_path}")
-    except ProjectExistsException:
-        print(f"Project ({args.project_name}) already exists")
-        exit(-1)
+    """ Parse the command line arguments and execute appropriate functions."""
+    config = Config.load_config()
+    args = _setup_args_parser(config)
+
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    logger.debug(args)
+    if args.command == "project":
+        project = Project(args.name, args.description,
+                          args.language, project_path=args.directory)
+        try:
+            project_path = project.run()
+            if sys.platform == "win32":
+                os.startfile(project_path)
+            else:
+                print(f"Project created: {project_path}")
+        except ProjectExistsException:
+            print(f"Project ({args.name}) already exists.")
+            exit(-1)
+    elif args.command == "config":
+        for setting in vars(config).keys():
+            value = getattr(args, setting)
+            if value is not None:
+                setattr(config, setting, value)
+        logger.debug(config.save())
+    else:
+        raise TypeError
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     command_line_run()
