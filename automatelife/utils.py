@@ -1,3 +1,5 @@
+import dataclasses
+import json
 import string
 import unicodedata
 import urllib.request

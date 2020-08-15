@@ -98,7 +98,7 @@ def command_line_run():
             value = getattr(args, setting)
             if value is not None:
                 setattr(config, setting, value)
-        logger.debug(config.to_json())
+        logger.debug(config.save())
     else:
         raise TypeError
 
