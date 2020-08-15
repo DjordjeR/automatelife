@@ -2,8 +2,6 @@ import logging
 import subprocess
 from pathlib import Path
 
-from git import Repo
-
 from .config import Config
 from .exceptions import ProjectExistsException
 from .language import LanguageDefinition
@@ -66,7 +64,7 @@ class Project:
             file.write(gitignore_text)
 
     def run(self):
-        """ Creates the project with the necessary structure. Fails if project 
+        """ Creates the project with the necessary structure. Fails if project
         exists.
         return created project path
         """

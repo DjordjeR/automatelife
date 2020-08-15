@@ -19,7 +19,7 @@ class _ConfigJSONEncoder(json.JSONEncoder):
 
 @dataclass
 class Config:
-    """Contains configuration for the program. You can save and load this 
+    """Contains configuration for the program. You can save and load this
     configuration from the json file."""
 
     templates_dir: Path = TEMPLATES_DIR
