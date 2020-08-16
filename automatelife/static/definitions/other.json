@@ -1,0 +1,10 @@
+{
+    "name": "other",
+    "files": [
+        "README.md"
+    ],
+    "commands":[
+        "git init",
+        "git status"
+    ]
+}

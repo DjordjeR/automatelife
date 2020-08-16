@@ -27,7 +27,7 @@ CONFIG_FILE /= ".config.json"
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 TEMPLATES_DIR = STATIC_DIR / "templates"
-LANGUAGES_DIR = STATIC_DIR / "lang_definitions"
+DEFINITIONS_DIR = STATIC_DIR / "definitions"
 
 DEFAULT_GITIGNORE = ["visualstudiocode"]
 GITIGNORE_URL = "https://www.gitignore.io/api/"

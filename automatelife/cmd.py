@@ -6,7 +6,7 @@ import sys
 from .config import Config
 from .core import Project
 from .exceptions import ProjectExistsException
-from .utils import discover_supported_languages
+from .utils import discover_default_definitions
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ def _setup_args_parser(config):
 
     parser = argparse.ArgumentParser(
         description="Create a project structure and some common files for the "
-        "given programing language.",
+        "given project type.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("-v",
@@ -61,10 +61,10 @@ def _setup_args_parser(config):
         type=str,
     )
     project_parser.add_argument(
-        "-l",
-        "--language",
-        help="project programming language",
-        choices=discover_supported_languages(config.languages_dir),
+        "-t",
+        "--type",
+        help="project type",
+        choices=discover_default_definitions(config.definitions_dir),
         default="python",
         type=str,
     )
@@ -89,7 +89,7 @@ def command_line_run():
     logger.debug(args)
     if args.command == "project":
         project = Project(args.name, args.description,
-                          args.language, project_path=args.directory)
+                          args.type, project_path=args.directory)
         try:
             project_path = project.run()
             if sys.platform == "win32":
