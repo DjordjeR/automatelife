@@ -1,8 +1,8 @@
 import json
 
-from automatelife import Config, discover_supported_languages
+from automatelife import Config, discover_default_definitions
 
 if __name__ == "__main__":
     config = Config()
-    print(discover_supported_languages(config.languages_dir))
+    print(discover_default_definitions(config.definitions_dir))
     print(json.dumps(config))

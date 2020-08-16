@@ -53,7 +53,7 @@ def get_gitignore(keywords) -> str:
     return text.decode("utf-8")
 
 
-def discover_supported_languages(templates_dir: Path):
+def discover_default_definitions(templates_dir: Path):
     """ Checks the languages templates directory and returns the list of file
     names inside it."""
     p = templates_dir.glob("**/*")

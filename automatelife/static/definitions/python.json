@@ -1,0 +1,27 @@
+{
+    "name": "python",
+    "dirs": [
+        "$projectName",
+        "bin",
+        "docs",
+        "tests",
+        "test/test2"
+    ],
+    "files": [
+        "$projectName/__init__.py",
+        "$projectName/core.py",
+        "README.md",
+        ".gitignore",
+        "setup.py",
+        "bin/example.py"
+    ],
+    "gitignore": [
+        "python",
+        "visualstudiocode",
+        "pycharm",
+        "venv"
+    ],
+    "commands": [
+        "git init"
+    ]
+}

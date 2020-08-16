@@ -33,7 +33,7 @@ pip3 install -e . # Linux
 ## Usage
 ```shell script
 automate-life -h # To show help
-automate-life project projectName --dir=/home/Projects --lang=python
+automate-life project projectName --dir=/home/Projects --type=python
 automate-life config -h # See all config options
 ```
 
