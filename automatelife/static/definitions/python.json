@@ -1,16 +1,15 @@
 {
     "name": "python",
+    "inherit_from": "default.json",
     "dirs": [
         "$projectName",
         "bin",
         "docs",
-        "tests",
-        "test/test2"
+        "tests"
     ],
     "files": [
         "$projectName/__init__.py",
         "$projectName/core.py",
-        "README.md",
         ".gitignore",
         "setup.py",
         "bin/example.py"
@@ -20,8 +19,5 @@
         "visualstudiocode",
         "pycharm",
         "venv"
-    ],
-    "commands": [
-        "git init"
     ]
 }
