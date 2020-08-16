@@ -1,10 +1,9 @@
 {
-    "name": "other",
+    "name": "default",
     "files": [
         "README.md"
     ],
     "commands":[
-        "git init",
-        "git status"
+        "git init"
     ]
 }

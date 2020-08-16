@@ -17,25 +17,36 @@ class ProjectDefinition:
     """
 
     def __init__(self, def_: str, config: Config):
-        self._dirs = None
-        self._files = None
-        self._commands = None
-        self._gitignore = None
+        self._dirs = set()
+        self._files = set()
+        self._commands = set()
+        self._gitignore = set()
         self._def = def_
         self._config = config
         self._project_def_file = self._config.definitions_dir / \
             (self._def + ".json")
-        self._load_project_specifics()
+        try:
+            self._load_project_specifics(self._project_def_file)
+        except RecursionError:
+            print("Language definition has a cyclic dependencie.")
+            exit(-1)
 
-    def _load_project_specifics(self):
-        with open(self._project_def_file) as f:
+    def _load_project_specifics(self, file_path):
+        with open(file_path) as f:
             loaded_data = json.loads(f.read())
-        self._dirs = loaded_data.get("dirs", [])
-        self._files = loaded_data.get("files", [])
-        self._commands = loaded_data.get("commands", [])
-        self._gitignore = loaded_data.get("gitignore", self._config.gitignore)
+
+        parent = loaded_data.get("inherit_from")
+        if parent:
+            self._load_project_specifics(self._config.definitions_dir / parent)
+
+        self._dirs.update(loaded_data.get("dirs", []))
+        self._files.update(loaded_data.get("files", []))
+        self._commands.update(loaded_data.get("commands", []))
+        self._gitignore.update(loaded_data.get(
+            "gitignore", self._config.gitignore))
 
     # TODO: Complete __repr__ and __str__
+
     def __repr__(self):
         return {
             "name": self._def,
@@ -79,7 +90,8 @@ class ProjectDefinition:
         """
         :returns List of commands to be run after project creation
         """
-        return self._commands
+        # TODO: This is very hacky ...
+        return reversed(list(self._commands))
 
 
 class Project:
