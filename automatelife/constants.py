@@ -22,8 +22,8 @@ else:
     DEFAULT_PROJECTS_DIR = Path("Projects")
     CONFIG_DIR = CONFIG_DIR / "Library/Application Support"
 
-CONFIG_FILE = CONFIG_DIR / "automatelife"
-CONFIG_FILE /= ".config.json"
+CONFIG_DIR = CONFIG_DIR / "automatelife"
+CONFIG_FILE = CONFIG_DIR / ".config.json"
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 TEMPLATES_DIR = STATIC_DIR / "templates"
