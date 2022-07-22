@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "automatelife"
+version = "0.0.1-dev.3"
+description = "Automate some daily and weekly tasks. Like crating projects from templates."
+authors = ["Djordje Rajic <djordje.rajic@student.tugraz.at>"]
+license = "GPL"
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+
+[tool.poetry.dev-dependencies]
+
+
+[tool.poetry.scripts]
+automate-life = "automatelife:command_line_run"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
